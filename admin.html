@@ -8,7 +8,6 @@
 
 <style>
 body {
-  margin: 0;
   font-family: sans-serif;
   background: #f5f5f5;
   display: flex;
@@ -21,30 +20,21 @@ body {
   background: white;
   padding: 20px;
   border-radius: 16px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
-input, button {
+input {
   width: 100%;
   padding: 12px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  font-size: 16px;
+  margin: 8px 0;
 }
 
 button {
-  background: #4CAF50;
+  width: 100%;
+  padding: 12px;
+  background: green;
   color: white;
   border: none;
-}
-
-.section {
-  margin-top: 20px;
-}
-
-.hidden {
-  display: none;
 }
 </style>
 </head>
@@ -53,61 +43,30 @@ button {
 
 <div class="container">
 
-<!-- 登入 -->
-<div id="loginBox">
-  <h2>🔐 後台登入</h2>
-  <input type="password" id="password" placeholder="輸入密碼">
-  <button onclick="login()">登入</button>
-</div>
+<h2>店員後台</h2>
 
-<!-- 後台 -->
-<div id="adminPanel" class="hidden">
+<h3>產生點數序號</h3>
+<input id="points" placeholder="點數">
+<button onclick="generate()">產生序號</button>
+<p id="result"></p>
 
-  <h2>店員後台</h2>
+<h3>扣除客人點數</h3>
+<input id="phone" placeholder="手機">
+<input id="usePointsInput" placeholder="扣點">
+<button onclick="usePoints()">扣點</button>
 
-  <!-- 產生序號 -->
-  <div class="section">
-    <h3>產生點數序號</h3>
-    <input id="points" placeholder="輸入點數">
-    <button onclick="generate()">產生序號</button>
-  </div>
-
-  <!-- 扣點 -->
-  <div class="section">
-    <h3>扣除客人點數</h3>
-    <input id="phone" placeholder="手機號碼">
-    <input id="usePoints" placeholder="扣除點數">
-    <button onclick="usePointsFunc()">扣點</button>
-  </div>
-
-  <!-- 消費累積 -->
-  <div class="section">
-    <h3>消費累積點數（1%）</h3>
-    <input id="buyPhone" placeholder="手機號碼">
-    <input id="amount" placeholder="消費金額">
-    <button onclick="addAmount()">累積點數</button>
-  </div>
-
-</div>
+<h3>消費累積（1%）</h3>
+<input id="buyPhone" placeholder="手機">
+<input id="amount" placeholder="金額">
+<button onclick="addAmount()">累積點數</button>
 
 </div>
 
 <script>
 
-const API = "https://script.google.com/macros/s/AKfycbyIRyOz7x8u6XUu4qFBmap8gJ-SDsH0QPJhof3l6bDO-YsgiiKLW5xME6mvq-_KNcmE/exec";
+const API = "https://script.google.com/macros/s/AKfycbzjW_IR0JF_psUtgC5knJtKsRHtX09fXg0ytKBgFgvhzpqOzp5DmJGwTuIRRmW_pVc7/exec";
 
-// 登入
-function login() {
-  const pwd = document.getElementById("password").value;
-
-  if (pwd === "az20408") {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("adminPanel").classList.remove("hidden");
-  } else {
-    alert("密碼錯誤");
-  }
-}
-
+// 產生序號
 function generate() {
   const points = document.getElementById("points").value;
 
@@ -124,6 +83,7 @@ function generate() {
   });
 }
 
+// 扣點
 function usePoints() {
   const phone = document.getElementById("phone").value;
   const points = document.getElementById("usePointsInput").value;
@@ -140,6 +100,7 @@ function usePoints() {
   .then(text => alert(text));
 }
 
+// 累積點數
 function addAmount() {
   const phone = document.getElementById("buyPhone").value;
   const amount = document.getElementById("amount").value;
