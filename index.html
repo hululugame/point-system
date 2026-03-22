@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>集點系統</title>
+
+  <style>
+    body {
+      font-family: -apple-system;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      font-weight: bold;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    hr {
+      margin: 20px 0;
+      border: none;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="box">
+
+    <h2>🎁 集點系統</h2>
+
+    <input id="phone" placeholder="手機號碼">
+    <input id="code" placeholder="輸入序號">
+    <button onclick="redeem()">兌換序號</button>
+
+    <hr>
+
+    <input id="checkPhone" placeholder="輸入手機查詢">
+    <button onclick="check()">查詢點數</button>
+
+    <div id="result">查詢結果會顯示在這裡</div>
+
+  </div>
+</div>
+
+<script>
+
+const API = "👉這裡https://script.google.com/macros/s/AKfycbzx9vA0vFY7iyJIIBJgIMd5-CLaL-0lScNCifUX5bF1HjN3RocNZA8MDiOALxFTXPhj/exec";
+
+function redeem() {
+  const phone = document.getElementById("phone").value;
+  const code = document.getElementById("code").value;
+
+  fetch(API + "?action=redeem&phone=" + phone + "&code=" + code)
+    .then(res => res.text())
+    .then(text => {
+      document.getElementById("result").innerText = text;
+    });
+}
+
+function check() {
+  const phone = document.getElementById("checkPhone").value;
+
+  fetch(API + "?action=check&phone=" + phone)
+    .then(res => res.text())
+    .then(text => {
+      document.getElementById("result").innerText = text;
+    });
+}
+
+</script>
+
+</body>
+</html>
