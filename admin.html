@@ -2,58 +2,41 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>後台管理</title>
 
 <style>
-html, body {
-  touch-action: manipulation;
-  overflow-x: hidden;
-}
-
 body {
   margin: 0;
   font-family: sans-serif;
   background: #f5f5f5;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 }
 
 .container {
   width: 90%;
   max-width: 420px;
-  margin: 0 auto;
   background: white;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  margin-top: 20px;
 }
 
-h2 {
-  text-align: center;
-}
-
-input {
+input, button {
   width: 100%;
   padding: 12px;
-  margin: 8px 0;
+  margin-top: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
   font-size: 16px;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
   background: #4CAF50;
   color: white;
-  font-size: 16px;
-  margin-top: 10px;
+  border: none;
 }
 
 .section {
@@ -70,14 +53,14 @@ button {
 
 <div class="container">
 
-<!-- 🔐 登入 -->
+<!-- 登入 -->
 <div id="loginBox">
   <h2>🔐 後台登入</h2>
   <input type="password" id="password" placeholder="輸入密碼">
   <button onclick="login()">登入</button>
 </div>
 
-<!-- 🧑‍💼 後台 -->
+<!-- 後台 -->
 <div id="adminPanel" class="hidden">
 
   <h2>店員後台</h2>
@@ -87,15 +70,14 @@ button {
     <h3>產生點數序號</h3>
     <input id="points" placeholder="輸入點數">
     <button onclick="generate()">產生序號</button>
-    <p id="result"></p>
   </div>
 
   <!-- 扣點 -->
   <div class="section">
     <h3>扣除客人點數</h3>
     <input id="phone" placeholder="手機號碼">
-    <input id="usePointsInput" placeholder="扣除點數">
-    <button onclick="usePoints()">扣點</button>
+    <input id="usePoints" placeholder="扣除點數">
+    <button onclick="usePointsFunc()">扣點</button>
   </div>
 
   <!-- 消費累積 -->
@@ -114,7 +96,7 @@ button {
 
 const API = "https://script.google.com/macros/s/AKfycbyIRyOz7x8u6XUu4qFBmap8gJ-SDsH0QPJhof3l6bDO-YsgiiKLW5xME6mvq-_KNcmE/exec";
 
-// 🔐 登入
+// 登入
 function login() {
   const pwd = document.getElementById("password").value;
 
@@ -126,28 +108,26 @@ function login() {
   }
 }
 
-// 🎁 產生序號
+// 產生序號
 function generate() {
   const points = document.getElementById("points").value;
 
   fetch(API + "?action=generate&points=" + points)
     .then(res => res.text())
-    .then(text => {
-      document.getElementById("result").innerText = text;
-    });
+    .then(text => alert(text));
 }
 
-// 💸 扣點（🔥修好）
-function usePoints() {
+// 扣點（✅ 完全對應後端）
+function usePointsFunc() {
   const phone = document.getElementById("phone").value;
-  const points = document.getElementById("usePointsInput").value;
+  const usePoints = document.getElementById("usePoints").value;
 
-  fetch(API + "?action=usePoints&phone=" + phone + "&usePoints=" + points)
+  fetch(API + "?action=usePoints&phone=" + phone + "&usePoints=" + usePoints)
     .then(res => res.text())
     .then(text => alert(text));
 }
 
-// 💰 消費累積（🔥修好）
+// 累積（✅ 完全對應後端）
 function addAmount() {
   const phone = document.getElementById("buyPhone").value;
   const amount = document.getElementById("amount").value;
