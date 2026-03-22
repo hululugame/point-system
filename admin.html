@@ -70,13 +70,7 @@ const API = "https://script.google.com/macros/s/AKfycbzjW_IR0JF_psUtgC5knJtKsRHt
 function generate() {
   const points = document.getElementById("points").value;
 
-  fetch(API, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "generate",
-      points: points
-    })
-  })
+  fetch(API + "?action=generate&points=" + points)
   .then(res => res.text())
   .then(text => {
     document.getElementById("result").innerText = text;
@@ -88,14 +82,7 @@ function usePoints() {
   const phone = document.getElementById("phone").value;
   const points = document.getElementById("usePointsInput").value;
 
-  fetch(API, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "usePoints",
-      phone: phone,
-      usePoints: points
-    })
-  })
+ fetch(API + "?action=usePoints&phone=" + phone + "&usePoints=" + points)
   .then(res => res.text())
   .then(text => alert(text));
 }
@@ -105,14 +92,7 @@ function addAmount() {
   const phone = document.getElementById("buyPhone").value;
   const amount = document.getElementById("amount").value;
 
-  fetch(API, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "addPointsByAmount",
-      phone: phone,
-      amount: amount
-    })
-  })
+fetch(API + "?action=addPointsByAmount&phone=" + phone + "&amount=" + amount)
   .then(res => res.text())
   .then(text => alert(text));
 }
