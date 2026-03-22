@@ -43,6 +43,16 @@ button {
 
 <div class="container">
 
+<div id="loginBox">
+  <h2>🔐 後台登入</h2>
+  <input type="password" id="password" placeholder="輸入密碼">
+  <button onclick="login()">登入</button>
+</div>
+
+<div id="adminPanel" style="display:none;">
+
+<h2>店員後台</h2>
+
 <h2>店員後台</h2>
 
 <h3>產生點數序號</h3>
@@ -95,6 +105,17 @@ function addAmount() {
 fetch(API + "?action=addPointsByAmount&phone=" + phone + "&amount=" + amount)
   .then(res => res.text())
   .then(text => alert(text));
+}
+
+function login() {
+  const pwd = document.getElementById("password").value;
+
+  if (pwd === "az20408") {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+  } else {
+    alert("密碼錯誤");
+  }
 }
 
 </script>
