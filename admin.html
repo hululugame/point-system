@@ -112,7 +112,6 @@ button {
 
 <script>
 
-// 🔥 用你現在「已經正常的那個 API」
 const API = "https://script.google.com/macros/s/AKfycbyIRyOz7x8u6XUu4qFBmap8gJ-SDsH0QPJhof3l6bDO-YsgiiKLW5xME6mvq-_KNcmE/exec";
 
 // 🔐 登入
@@ -127,7 +126,7 @@ function login() {
   }
 }
 
-// 🎁 產生序號（✅已修）
+// 🎁 產生序號
 function generate() {
   const points = document.getElementById("points").value;
 
@@ -138,22 +137,22 @@ function generate() {
     });
 }
 
-// 💸 扣點（✅已修）
+// 💸 扣點（🔥修好）
 function usePoints() {
   const phone = document.getElementById("phone").value;
   const points = document.getElementById("usePointsInput").value;
 
-  fetch(API + "?action=usePoints&phone=" + phone + "&points=" + points)
+  fetch(API + "?action=usePoints&phone=" + phone + "&usePoints=" + points)
     .then(res => res.text())
     .then(text => alert(text));
 }
 
-// 💰 消費累積（✅已修）
+// 💰 消費累積（🔥修好）
 function addAmount() {
   const phone = document.getElementById("buyPhone").value;
   const amount = document.getElementById("amount").value;
 
-  fetch(API + "?action=add&phone=" + phone + "&amount=" + amount)
+  fetch(API + "?action=addPointsByAmount&phone=" + phone + "&amount=" + amount)
     .then(res => res.text())
     .then(text => alert(text));
 }
