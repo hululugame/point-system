@@ -7,7 +7,6 @@
 <title>後台管理</title>
 
 <style>
-
 html, body {
   touch-action: manipulation;
   overflow-x: hidden;
@@ -43,7 +42,7 @@ input {
   margin: 8px 0;
   border-radius: 10px;
   border: 1px solid #ddd;
-  font-size: 16px;   /* 🔥 關鍵 */
+  font-size: 16px;
 }
 
 button {
@@ -95,7 +94,7 @@ button {
   <div class="section">
     <h3>扣除客人點數</h3>
     <input id="phone" placeholder="手機號碼">
-    <input id="usePoints" placeholder="扣除點數">
+    <input id="usePointsInput" placeholder="扣除點數">
     <button onclick="usePoints()">扣點</button>
   </div>
 
@@ -113,8 +112,8 @@ button {
 
 <script>
 
-// 🔥 換成你的 API
-const API_URL = "https://script.google.com/macros/s/AKfycbyZcEV-IrvSy-jAQVwA8qxCgJSEnFvmjZ14Uu5GN3WZkwCEGsr5DJJ_KbEbW98JdEOe/exec";
+// 🔥 用你現在「已經正常的那個 API」
+const API = "https://script.google.com/macros/s/AKfycbyIRyOz7x8u6XUu4qFBmap8gJ-SDsH0QPJhof3l6bDO-YsgiiKLW5xME6mvq-_KNcmE/exec";
 
 // 🔐 登入
 function login() {
@@ -128,33 +127,33 @@ function login() {
   }
 }
 
-// 🎁 產生序號
+// 🎁 產生序號（✅已修）
 function generate() {
   const points = document.getElementById("points").value;
 
-  fetch(API_URL + "?action=generate&points=" + points)
+  fetch(API + "?action=generate&points=" + points)
     .then(res => res.text())
     .then(text => {
       document.getElementById("result").innerText = text;
     });
 }
 
-// 💸 扣點
+// 💸 扣點（✅已修）
 function usePoints() {
   const phone = document.getElementById("phone").value;
-  const points = document.getElementById("usePoints").value;
+  const points = document.getElementById("usePointsInput").value;
 
-  fetch(API_URL + `?action=usePoints&phone=${phone}&points=${points}`)
+  fetch(API + "?action=usePoints&phone=" + phone + "&points=" + points)
     .then(res => res.text())
     .then(text => alert(text));
 }
 
-// 💰 消費累積
+// 💰 消費累積（✅已修）
 function addAmount() {
   const phone = document.getElementById("buyPhone").value;
   const amount = document.getElementById("amount").value;
 
-  fetch(API_URL + `?action=addAmount&phone=${phone}&amount=${amount}`)
+  fetch(API + "?action=add&phone=" + phone + "&amount=" + amount)
     .then(res => res.text())
     .then(text => alert(text));
 }
