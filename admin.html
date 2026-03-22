@@ -108,33 +108,52 @@ function login() {
   }
 }
 
-// 產生序號
 function generate() {
   const points = document.getElementById("points").value;
 
-  fetch(API + "?action=generate&points=" + points)
-    .then(res => res.text())
-    .then(text => alert(text));
+  fetch(API, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "generate",
+      points: points
+    })
+  })
+  .then(res => res.text())
+  .then(text => {
+    document.getElementById("result").innerText = text;
+  });
 }
 
-// 扣點（✅ 完全對應後端）
-function usePointsFunc() {
+function usePoints() {
   const phone = document.getElementById("phone").value;
-  const usePoints = document.getElementById("usePoints").value;
+  const points = document.getElementById("usePointsInput").value;
 
-  fetch(API + "?action=usePoints&phone=" + phone + "&usePoints=" + usePoints)
-    .then(res => res.text())
-    .then(text => alert(text));
+  fetch(API, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "usePoints",
+      phone: phone,
+      usePoints: points
+    })
+  })
+  .then(res => res.text())
+  .then(text => alert(text));
 }
 
-// 累積（✅ 完全對應後端）
 function addAmount() {
   const phone = document.getElementById("buyPhone").value;
   const amount = document.getElementById("amount").value;
 
-  fetch(API + "?action=addPointsByAmount&phone=" + phone + "&amount=" + amount)
-    .then(res => res.text())
-    .then(text => alert(text));
+  fetch(API, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "addPointsByAmount",
+      phone: phone,
+      amount: amount
+    })
+  })
+  .then(res => res.text())
+  .then(text => alert(text));
 }
 
 </script>
