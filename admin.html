@@ -81,7 +81,11 @@ function generate() {
   fetch(API + "?action=generate&points=" + points)
   .then(res => res.text())
   .then(text => {
-    document.getElementById("result").innerText = text;
+document.getElementById("result").innerHTML = `
+  ${text}
+  <br><br>
+  <button onclick="copyText('${text}')">複製序號</button>
+`;
   });
 }
 
