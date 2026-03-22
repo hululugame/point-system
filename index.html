@@ -104,10 +104,15 @@ function redeem() {
 function check() {
   const phone = document.getElementById("checkPhone").value;
 
+  document.getElementById("result").innerText = "查詢中...";
+
   fetch(API + "?action=check&phone=" + phone)
     .then(res => res.text())
     .then(text => {
       document.getElementById("result").innerText = text;
+    })
+    .catch(err => {
+      document.getElementById("result").innerText = "❌ 發生錯誤：" + err;
     });
 }
 
